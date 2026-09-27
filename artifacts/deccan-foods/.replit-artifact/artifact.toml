@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Deccan Foods"
+description = "A responsive Deccan Foods storefront MVP for browsing biscuits, breads, and mints, building a cart, placing mock orders, and reviewing order history across five South Indian states."
+version = "1.0.0"
+id = "artifacts/deccan-foods"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22206
+
+[services.development]
+run = "pnpm --filter @workspace/deccan-foods run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/deccan-foods", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/deccan-foods/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22206"
+BASE_PATH = "/"
